@@ -4,7 +4,8 @@ const db = mysql.createConnection({
     user: 'root',
     password: '',
     host: 'localhost',
-    database: 'chat_grupal'
+    database: 'chat_grupal',
+    port: 3306
 });
 
 db.connect((err) => {
