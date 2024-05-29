@@ -6,7 +6,7 @@ socket.on('chat', (codigo, usuario, msg) => {
     const codigoLogeado = sessionStorage.getItem('codigo');
     tipo = (codigo == codigoLogeado)?'sent':'received';
     pintarHTML(tipo, usuario, msg);
-    grabarMensaje(codigo, msg);
+   
 });
 
 socket.on('unirse', (usuario) => {
@@ -21,6 +21,7 @@ function grabar() {
     if (mensaje.value != "") {
         socket.emit('chat', codigo, usuario, mensaje.value);
         mensaje.value = "";
+        grabarMensaje(codigo,  mensaje.value);
     }
 }
 
