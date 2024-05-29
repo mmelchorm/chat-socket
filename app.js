@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const authRoutes = require('./routes/auth');
 
+const { PORT } = require('./config');
+
 
 const app = express()
 
@@ -64,8 +66,8 @@ app.get('/chat', (req, res) => {
     res.sendFile(path.join(__dirname, 'cliente', 'chat.html'));
 })
 
-server.listen(3000, () => {
-    console.log("Servidor corriendo en el puerto http://localhost:3000")
+server.listen(PORT, () => {
+    console.log(`Server is listening on port ${server.address().port}`)
 })
 
 function cortarOracionEnPartes(oracion, maxLen) {
