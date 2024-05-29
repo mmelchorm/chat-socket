@@ -2,10 +2,10 @@ const mysql = require('mysql2');
 
 const db = mysql.createConnection({
     user: 'root',
-    password: '',
-    host: 'localhost',
-    database: 'chat_grupal',
-    port: 3306
+    password: 'cWVHEVYjytUoxLvIdaZwYWSfpqwApVKh',
+    host: 'monorail.proxy.rlwy.net',
+    database: 'railway',
+    port: 50919
 });
 
 db.connect((err) => {
