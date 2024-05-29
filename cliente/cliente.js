@@ -51,6 +51,7 @@ async function login() {
             if (response.ok) {
                 Swal.fire('Success', 'Login successful', 'success').then(() => {
                     window.location.href = '/chat'; // Cambia esto a la ruta que desees después del login
+
                     // socket.emit('unirse', result.usuario)
                 });
             } else {
@@ -82,6 +83,7 @@ function pintarHTML(tipo, usuario, msg) {
 }
 
 function pintarIngreso(usuario) {
+    grabarMensaje(0,  mensaje.value);
     // Crear el HTML del mensaje utilizando template literals
     const messageHTML = `
     <div class="text-center">
@@ -133,8 +135,12 @@ async function resultMensajes() {
         const codigoLogeado = sessionStorage.getItem('codigo');
         // Procesar cada mensaje obtenido
         data.forEach(mensaje => {
-            tipo = (mensaje.msg_usuario == codigoLogeado)?'sent':'received';
-            pintarHTML(tipo, mensaje.msg_nombre, mensaje.msg_mensaje); // Llamar a la función pintarHTML para cada mensaje
+            if (mensaje.msg_usuario == 0) {
+                pintarIngreso(mensaje.msg_nombre);
+            }else{
+                tipo = (mensaje.msg_usuario == codigoLogeado)?'sent':'received';
+                pintarHTML(tipo, mensaje.msg_nombre, mensaje.msg_mensaje); // Llamar a la función pintarHTML para cada mensaje
+            }
         });
     } catch (error) {
         console.error('Error:', error); // Imprimir cualquier error que ocurra
