@@ -83,7 +83,7 @@ function pintarHTML(tipo, usuario, msg) {
 }
 
 function pintarIngreso(usuario) {
-    grabarMensaje(0,  mensaje.value);
+   // grabarMensaje(0,  mensaje.value);
     // Crear el HTML del mensaje utilizando template literals
     const messageHTML = `
     <div class="text-center">
