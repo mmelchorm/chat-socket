@@ -137,7 +137,10 @@ async function resultMensajes() {
         // Procesar cada mensaje obtenido
         data.forEach(mensaje => {
             tipo = (mensaje.msg_usuario == codigoLogeado)?'sent':'received';
-            pintarHTML(tipo, mensaje.msg_nombre, mensaje.msg_mensaje); // Llamar a la función pintarHTML para cada mensaje
+            partes = cortarOracionEnPartes(mensaje.msg_mensaje, 80);
+            partes.forEach(msg =>{
+                pintarHTML(tipo, mensaje.msg_nombre, msg); // Llamar a la función pintarHTML para cada mensaje
+            });
 
         });
     } catch (error) {
@@ -184,4 +187,31 @@ async function registrarse() {
     } else {
         Swal.fire('Error', 'Datos vacios', 'warning');
     }
+}
+
+function cortarOracionEnPartes(oracion, maxLen) {
+    const partes = [];
+    let inicio = 0;
+    
+    while (inicio < oracion.length) {
+        // Encuentra el límite de corte
+        let fin = Math.min(inicio + maxLen, oracion.length);
+        
+        // Si estamos en el medio de una palabra, retrocede hasta el último espacio
+        if (fin < oracion.length && oracion[fin] !== ' ') {
+            fin = oracion.lastIndexOf(' ', fin);
+            if (fin === -1 || fin < inicio) {
+                // Si no se encuentra un espacio, simplemente corta en maxLen
+                fin = inicio + maxLen;
+            }
+        }
+        
+        // Añade la parte cortada al array
+        partes.push(oracion.substring(inicio, fin).trim());
+        
+        // Avanza el inicio para la siguiente parte
+        inicio = fin + 1;
+    }
+    
+    return partes;
 }
