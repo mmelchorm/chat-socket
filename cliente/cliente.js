@@ -21,7 +21,7 @@ function grabar() {
     if (mensaje.value != "") {
         grabarMensaje(codigo,  mensaje.value);
         socket.emit('chat', codigo, usuario, mensaje.value);
-        mensaje.value = "";
+        //mensaje.value = "";
     }
 }
 
@@ -135,12 +135,9 @@ async function resultMensajes() {
         const codigoLogeado = sessionStorage.getItem('codigo');
         // Procesar cada mensaje obtenido
         data.forEach(mensaje => {
-            if (mensaje.msg_usuario == 0) {
-                pintarIngreso(mensaje.msg_nombre);
-            }else{
-                tipo = (mensaje.msg_usuario == codigoLogeado)?'sent':'received';
-                pintarHTML(tipo, mensaje.msg_nombre, mensaje.msg_mensaje); // Llamar a la función pintarHTML para cada mensaje
-            }
+            tipo = (mensaje.msg_usuario == codigoLogeado)?'sent':'received';
+            pintarHTML(tipo, mensaje.msg_nombre, mensaje.msg_mensaje); // Llamar a la función pintarHTML para cada mensaje
+
         });
     } catch (error) {
         console.error('Error:', error); // Imprimir cualquier error que ocurra
