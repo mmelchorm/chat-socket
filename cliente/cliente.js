@@ -115,6 +115,7 @@ async function grabarMensaje(usuario, mensaje) {
             const result = await response.json();
             if (response.ok) {
                 console.log(result.msg)
+                document.getElementById("mensaje").value = "";
             } else {
                 console.log(result.msg)
             }
