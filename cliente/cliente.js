@@ -19,9 +19,9 @@ function grabar() {
     const usuario = sessionStorage.getItem('usuario');
     // console.log(codigo+'-'+usuario)
     if (mensaje.value != "") {
+        grabarMensaje(codigo,  mensaje.value);
         socket.emit('chat', codigo, usuario, mensaje.value);
         mensaje.value = "";
-        grabarMensaje(codigo,  mensaje.value);
     }
 }
 
