@@ -151,3 +151,39 @@ function logout(){
     sessionStorage.clear();
     window.location.href = 'login.html'
 }
+
+async function registrarse() {
+    let usuario = document.getElementById("username");
+    let contra = document.getElementById("password");
+    if(usuario.value !== "" && contra.value !== ""){
+
+        const formData = new URLSearchParams();
+        formData.append('username', usuario.value);
+        formData.append('password', contra.value);
+
+        try {
+            const response = await fetch('/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData.toString()
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                Swal.fire('Success', 'Login successful', 'success').then(() => {
+                    window.location.href = '/'; // Cambia esto a la ruta que desees después del login
+
+                    // socket.emit('unirse', result.usuario)
+                });
+            } else {
+                Swal.fire('Error', result.message || result, 'error');
+            }
+        } catch (error) {
+            Swal.fire('Error', 'An error occurred '+error, 'error');
+        }      
+    } else {
+        Swal.fire('Error', 'Datos vacios', 'warning');
+    }
+}

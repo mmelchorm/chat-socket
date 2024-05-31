@@ -18,11 +18,14 @@ router.post('/register', async (req, res) => {
     (err, result) => {
         if (err) {
             if (err.code === 'ER_DUP_ENTRY') {
-                return res.status(400).send('Username already exists');
+                // return res.status(400).send('Username already exists');
+                return res.json({ message: "usuario ya existe" });
             }
-            return res.status(500).send('Server error');
+            // return res.status(500).send('Server error');
+            return res.json({ message: "Error en servidor --"+err });
         }
-        res.status(201).redirect('/');
+        // res.status(201).redirect('/');
+        return res.json({ message: "Usuario Registrado" });
     });
 });
 
